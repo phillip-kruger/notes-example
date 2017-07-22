@@ -59,6 +59,10 @@
         <jee.version>7.0</jee.version>
         <lombok.version>1.16.16</lombok.version>
        
+        <!-- Other libs -->
+        <apiee.version>1.0.1</apiee.version>
+        <stompee.version>1.1.2</stompee.version>
+        
         <!-- Javascript libraries -->
         <semantic-ui.version>2.2.10</semantic-ui.version>
         <jquery.version>3.2.1</jquery.version>
@@ -85,13 +89,13 @@
         <dependency>
             <groupId>com.github.phillip-kruger</groupId>
             <artifactId>apiee-core</artifactId>
-            <version>1.0.1</version>
+            <version>${apiee.version}</version>
         </dependency>
         <!-- Stompee -->
         <dependency>
             <groupId>com.github.phillip-kruger</groupId>
             <artifactId>stompee-core</artifactId>
-            <version>1.1.1</version>
+            <version>${stompee.version}</version>
             <scope>runtime</scope>
         </dependency>
         <!-- Webjars: see http://www.webjars.org/documentation -->

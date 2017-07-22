@@ -2,9 +2,6 @@ package com.github.phillipkruger.notes;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Contact;
-import io.swagger.annotations.Info;
-import io.swagger.annotations.SwaggerDefinition;
 import java.util.List;
 import javax.inject.Inject;
 import javax.jws.WebMethod;
@@ -23,17 +20,6 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/note")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML}) @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@SwaggerDefinition (info = @Info (
-                        title = "Notes Service",
-                        description = "A simple reminder notes application",
-                        version = "1.0-SNAPSHOT",
-                        contact = @Contact (
-                            name = "Phillip Kruger", 
-                            email = "phillip.kruger@phillip-kruger.com", 
-                            url = "https://github.com/phillip-kruger/notes-example"
-                        )
-                    )
-                )
 @Api(value = "Notes service")
 @WebService
 public class NotesApi {
