@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.github.phillip-kruger</groupId>
+    <artifactId>notes-example</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    
+    <name>notes-example</name>
+    <url>https://github.com/phillip-kruger/notes-example</url>
+    <description>Example application to demonstrate Java EE 7</description>
+    
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <scm>
+        <connection>scm:git:https://github.com/phillip-kruger/notes-example.git</connection>
+        <url>https://github.com/phillip-kruger/notes-example</url>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>wiki</id>
+            <url>https://github.com/phillip-kruger/notes-example/wiki</url>
+        </site>
+        
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    
+    </distributionManagement>
+
+    <developers>
+        <developer>
+            <name>Phillip Kruger</name>
+            <email>phillip.kruger@phillip-kruger.com</email>
+            <organizationUrl>http://www.phillip-kruger.com</organizationUrl>
+        </developer>
+    </developers>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Java version -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <!-- JEE Platform -->        
+        <jee.version>7.0</jee.version>
+        <lombok.version>1.16.16</lombok.version>
+       
+        <!-- Javascript libraries -->
+        <semantic-ui.version>2.2.10</semantic-ui.version>
+        <jquery.version>3.2.1</jquery.version>
+        
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+    </properties>
+    
+    <dependencies>
+        <!-- Jave ee -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${jee.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Apiee -->
+        <dependency>
+            <groupId>com.github.phillip-kruger</groupId>
+            <artifactId>apiee-core</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <!-- Stompee -->
+        <dependency>
+            <groupId>com.github.phillip-kruger</groupId>
+            <artifactId>stompee-core</artifactId>
+            <version>1.1.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Webjars: see http://www.webjars.org/documentation -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>semantic-ui</artifactId>
+            <version>${semantic-ui.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    
+                    <webResources>
+                        <resource>
+                            <directory>${basedir}/src/main/webapp</directory>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>*.css</include>
+                                <include>*.html</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                    
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+        <!-- Activate using the wildfly property: mvn clean install -Dwildfly -->
+        <profile>
+            <id>wildfly</id>
+            <activation>
+                <property>
+                    <name>wildfly</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>1.2.0.Alpha5</version>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>        
+            </build>
+        </profile>    
+        
+        <!-- Activate using the tomee property: mvn clean install -Dtomee -->
+        <profile>
+            <id>tomee</id>
+            <activation>
+                <property>
+                    <name>tomee</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <outputDirectory>/opt/apache-tomee-plus-7.0.3/webapps/</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                        
+            </build>
+        </profile>
+        
+        <!-- Activate using the payara property: mvn clean install -Dpayara -->
+        <profile>
+            <id>payara</id>
+            <activation>
+                <property>
+                    <name>payara</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <outputDirectory>/opt/payara41/glassfish/domains/domain1/autodeploy/</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                        
+            </build>
+        </profile>
+        
+        <!-- Activate using the liberty property: mvn clean install -Dliberty -->
+        <profile>
+            <id>liberty</id>
+            <activation>
+                <property>
+                    <name>liberty</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <outputDirectory>/opt/wlp/usr/servers/defaultServer/dropins/</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                        
+            </build>
+        </profile>
+    </profiles>
+    
+</project>
