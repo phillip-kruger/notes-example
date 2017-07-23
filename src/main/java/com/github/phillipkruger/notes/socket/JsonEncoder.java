@@ -9,6 +9,10 @@ import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
+/**
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 public class JsonEncoder implements Encoder.TextStream<JsonObject> {
 
     @Override

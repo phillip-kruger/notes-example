@@ -11,11 +11,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Data @NoArgsConstructor @AllArgsConstructor
 @XmlRootElement @XmlAccessorType(XmlAccessType.FIELD)
 public class ChangeEvent {
     @NotNull @XmlElementRef
     private Note note;
     @NotNull @XmlAttribute
-    private EventType type;
+    private String type;
 }

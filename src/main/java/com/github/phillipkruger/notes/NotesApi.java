@@ -18,6 +18,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * The API for outside consumption. 
+ * Just wrapping the actual implementation with SOAP and REST.
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Path("/note")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML}) @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Api(value = "Notes service")

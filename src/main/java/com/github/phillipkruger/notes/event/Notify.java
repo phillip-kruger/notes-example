@@ -9,10 +9,14 @@ import java.lang.annotation.Target;
 import javax.enterprise.util.Nonbinding;
 import javax.interceptor.InterceptorBinding;
 
+/**
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Inherited
 @InterceptorBinding
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 public @interface Notify {
-    @Nonbinding EventType type() default EventType.CREATE; 
+    @Nonbinding String value() default ""; 
 }

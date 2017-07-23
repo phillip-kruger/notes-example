@@ -2,6 +2,10 @@ package com.github.phillipkruger.notes;
 
 import lombok.NoArgsConstructor;
 
+/**
+ * Exception when note could not be found
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @NoArgsConstructor
 public class NoteNotFoundException extends Exception {
 

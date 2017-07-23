@@ -7,6 +7,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+/**
+ * Translate ConstraintViolationException (Bean validation) to HTTP 412 (Precondition failed)
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Provider
 public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
     

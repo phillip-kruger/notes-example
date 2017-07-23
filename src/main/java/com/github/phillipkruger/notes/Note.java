@@ -11,7 +11,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
- 
+/**
+ * JAXB 2.2 and Lombok
+ * Demonstrate how to easy create a POJO with Lombok that can serialize to XML and Json with JAXB.
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Data @NoArgsConstructor @AllArgsConstructor
 @XmlRootElement @XmlAccessorType(XmlAccessType.FIELD)
 public class Note implements Serializable {

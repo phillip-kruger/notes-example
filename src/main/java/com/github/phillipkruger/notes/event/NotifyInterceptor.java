@@ -11,6 +11,10 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import lombok.extern.java.Log;
 
+/**
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Notify
 @Interceptor
 @Log
@@ -21,37 +25,14 @@ public class NotifyInterceptor implements Serializable {
         Note note = (Note)ic.proceed();
         
         Method method = ic.getMethod();
+        String name = method.getName();
         Notify annotation = method.getAnnotation(Notify.class);
         
-        switch (annotation.type()) {
-            case CREATE:
-                notifyCreate(note);
-                break;
-            case UPDATE:
-                notifyUpdate(note);
-                break;
-            case DELETE:
-                notifyDelete(note);
-                break;
-            default:
-                break;
-        }
+        ChangeEvent changeEvent = new ChangeEvent(note, annotation.value());
+        log.log(Level.INFO, "Intercepting [{0}] : {1}", new Object[]{name, changeEvent});
+        broadcaster.fire(changeEvent);
+        
         return note;
-    }
-    
-    private void notifyCreate(Note note){
-        log.log(Level.INFO, "Interceptor: Create {0}", note);
-        broadcaster.fire(new ChangeEvent(note, EventType.CREATE));
-    }
-    
-    private void notifyUpdate(Note note){
-        log.log(Level.INFO, "Interceptor: Update {0}", note);
-        broadcaster.fire(new ChangeEvent(note, EventType.UPDATE));
-    }
-    
-    private void notifyDelete(Note note){
-        log.log(Level.INFO, "Interceptor: Delete {0}", note);
-        broadcaster.fire(new ChangeEvent(note, EventType.DELETE));
     }
     
     @Inject

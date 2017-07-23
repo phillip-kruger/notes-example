@@ -2,6 +2,10 @@ package com.github.phillipkruger.notes;
 
 import lombok.NoArgsConstructor;
 
+/**
+ * Exception when trying to create a note that exist already
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @NoArgsConstructor
 public class NoteExistAlreadyException extends Exception {
 

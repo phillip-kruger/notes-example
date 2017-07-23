@@ -1,74 +1,66 @@
 package com.github.phillipkruger.notes;
 
-import com.github.phillipkruger.notes.event.EventType;
 import com.github.phillipkruger.notes.event.Notify;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-//import javax.annotation.security.DeclareRoles;
 import javax.ejb.Stateless;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.extern.java.Log;
 
+/**
+ * The actual implementation.
+ * Plain old Stateless service.
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Stateless
 @Log
-//@DeclareRoles({"owner"})
 public class NotesService {
     
     //@Inject
     //private Cache<String,Note> cache;
     private static Map<String,Note> cache = new HashMap<>();
     
-    @Notify(type = EventType.CREATE)
-    //TODO: RolesAllowed("owner")
-    public Note createNote(
-            @NotNull @Size(min=2, max=20)
-            String title,@NotNull String text) throws NoteExistAlreadyException{
+    @Notify("create")
+    public Note createNote(@NotNull @Size(min=2, max=20) String title,@NotNull String text) throws NoteExistAlreadyException{
         
-        if(exist(title))throw new NoteExistAlreadyException();
+        if(exist(title))throw new NoteExistAlreadyException("Could not create note [" + title + "]");
         Note note = new Note(title, text);
         save(note);
         log.log(Level.INFO, "Created note [{0}]", note);
         return note;
     }
 
-    public Note getNote(
-            @NotNull @Size(min=2, max=20)
-            String title) throws NoteNotFoundException{
+    public Note getNote(@NotNull @Size(min=2, max=20) String title) throws NoteNotFoundException{
         
-        if(!exist(title))throw new NoteNotFoundException();
+        if(!exist(title))throw new NoteNotFoundException("Could not find note [" + title + "]");
         Note note = cache.get(title);
         log.log(Level.INFO, "Retrieving note [{0}]", note);
         return note;
     }
 
-    @Notify(type = EventType.DELETE)
-    public Note deleteNote(
-            @NotNull @Size(min=2, max=20)
-            String title) throws NoteNotFoundException{
-        if(!exist(title))throw new NoteNotFoundException();
+    @Notify("delete")
+    public Note deleteNote(@NotNull @Size(min=2, max=20) String title) throws NoteNotFoundException{
+        if(!exist(title))throw new NoteNotFoundException("Could not find note [" + title + "]");
         Note note = cache.get(title);
         cache.remove(title);
         log.log(Level.INFO, "Removing note [{0}]", title);
         return note;
     }
 
-    @Notify(type = EventType.UPDATE)
+    @Notify("update")
     public Note updateNote(@NotNull Note note) throws NoteNotFoundException{
         
-        if(!exist(note.getTitle()))throw new NoteNotFoundException();
+        if(!exist(note.getTitle()))throw new NoteNotFoundException("Could not find note [" + note.getTitle() + "]");
         save(note);
         log.log(Level.INFO, "Updated note [{0}]", note);
         return note;
     }
 
-    public boolean exist(
-            @NotNull @Size(min=2, max=20)
-                    String title){
-        
+    public boolean exist(@NotNull @Size(min=2, max=20) String title){
         return cache.containsKey(title);
     }
 

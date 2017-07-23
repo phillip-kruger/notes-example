@@ -25,9 +25,13 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import lombok.extern.java.Log;
 
+/**
+ * 
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
 @Log
 @ServerEndpoint(value = "/note",
-        encoders = {JsonEncoder.class})//,decoders = {NoteDecoder.class}) 
+        encoders = {JsonEncoder.class})
 public class NotesSocket {
     
     @Inject 
@@ -104,7 +108,7 @@ public class NotesSocket {
         job.add("lastUpdated", toJSONDate(note.getLastUpdated()));
         job.add("title", note.getTitle());
         job.add("text", note.getText());
-        job.add("changeType", ce.getType().name());
+        job.add("changeType", ce.getType());
         return job.build();
     }
     

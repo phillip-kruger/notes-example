@@ -52,10 +52,10 @@ function openSocket(){
         var note = json.text;
         var created = new Date(json.created).toDateString();
         
-        if(type == "UPDATE"){ 
+        if(type == "update"){ 
             removeCard(title);
             writeCard(title,created,note);
-        }else if( type == "DELETE"){
+        }else if( type == "delete"){
             removeCard(title);
         }else {
             writeCard(title,created,note);
