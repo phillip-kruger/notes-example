@@ -30,8 +30,7 @@ import lombok.extern.java.Log;
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 @Log
-@ServerEndpoint(value = "/note",
-        encoders = {JsonEncoder.class})
+@ServerEndpoint(value = "/note",encoders = {JsonEncoder.class})
 public class NotesSocket {
     
     @Inject 
@@ -99,7 +98,7 @@ public class NotesSocket {
     }
     
     private static final Queue<Session> sessions = new ConcurrentLinkedQueue<>();
-    
+    //private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
     
     private JsonObject toJSON(ChangeEvent ce){
         JsonObjectBuilder job = Json.createObjectBuilder();

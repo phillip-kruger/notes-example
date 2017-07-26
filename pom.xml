@@ -168,6 +168,7 @@
         </profile>    
         
         <!-- Activate using the tomee property: mvn clean install -Dtomee -->
+        <!-- Apiee not working -->
         <profile>
             <id>tomee</id>
             <activation>
