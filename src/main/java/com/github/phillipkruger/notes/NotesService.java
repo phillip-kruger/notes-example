@@ -2,11 +2,11 @@ package com.github.phillipkruger.notes;
 
 import com.github.phillipkruger.notes.event.Notify;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.extern.java.Log;
@@ -22,22 +22,23 @@ public class NotesService {
     
     //@Inject
     //private Cache<String,Note> cache;
-    private static Map<String,Note> cache = new HashMap<>();
+    @PersistenceContext(name="com.github.phillipkruger.notes")
+    private EntityManager em;
     
     @Notify("create")
     public Note createNote(@NotNull @Size(min=2, max=20) String title,@NotNull String text) throws NoteExistAlreadyException{
-        
         if(exist(title))throw new NoteExistAlreadyException("Could not create note [" + title + "]");
         Note note = new Note(title, text);
-        save(note);
+        note = em.merge(note);
         log.log(Level.INFO, "Created note [{0}]", note);
         return note;
     }
 
     public Note getNote(@NotNull @Size(min=2, max=20) String title) throws NoteNotFoundException{
-        
         if(!exist(title))throw new NoteNotFoundException("Could not find note [" + title + "]");
-        Note note = cache.get(title);
+        Note note = (Note)em.createNamedQuery(Note.QUERY_FIND_BY_TITLE)
+					.setParameter("title", title)
+					.getSingleResult();
         log.log(Level.INFO, "Retrieving note [{0}]", note);
         return note;
     }
@@ -45,38 +46,41 @@ public class NotesService {
     @Notify("delete")
     public Note deleteNote(@NotNull @Size(min=2, max=20) String title) throws NoteNotFoundException{
         if(!exist(title))throw new NoteNotFoundException("Could not find note [" + title + "]");
-        Note note = cache.get(title);
-        cache.remove(title);
+        Note note = getNote(title);
+        em.remove(note);
         log.log(Level.INFO, "Removing note [{0}]", title);
         return note;
     }
 
     @Notify("update")
     public Note updateNote(@NotNull Note note) throws NoteNotFoundException{
-        
         if(!exist(note.getTitle()))throw new NoteNotFoundException("Could not find note [" + note.getTitle() + "]");
-        save(note);
+        note = em.merge(note);
         log.log(Level.INFO, "Updated note [{0}]", note);
         return note;
     }
 
     public boolean exist(@NotNull @Size(min=2, max=20) String title){
-        return cache.containsKey(title);
+        // Can this not be done with CriteriaBuilder ?
+        Long count = (Long)em.createNamedQuery(Note.QUERY_COUNT_BY_TITLE)
+					.setParameter("title", title)
+					.getSingleResult();
+        
+        return count>0;
     }
 
     public List<String> getNoteTitles(){
-        return new ArrayList<>(cache.keySet());
-//        List<String> titles = new ArrayList<>();
-//        Iterator<Cache.Entry<String, Note>> iterator = cache.iterator();
-//        while (iterator.hasNext()) {
-//            Cache.Entry<String, Note> next = iterator.next();
-//            titles.add(next.getKey());
-//        }
-//        return titles;
+        List<String> titles = new ArrayList<>();
+        List<Note> notes = getAllNotes();
+        if(notes!=null && !notes.isEmpty()){
+            notes.forEach((note) -> {
+                titles.add(note.getTitle());
+            });
+        }
+        return titles;
     }
     
-    private void save(Note note){
-        cache.put(note.getTitle(), note);
+    public List<Note> getAllNotes() {
+        return em.createNamedQuery("Note.findAll", Note.class).getResultList();
     }
-    
 }

@@ -10,7 +10,7 @@ import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
 /**
- * 
+ * Encoder that can encode JsonObject to be streamed over WebSockets
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 public class JsonEncoder implements Encoder.TextStream<JsonObject> {
