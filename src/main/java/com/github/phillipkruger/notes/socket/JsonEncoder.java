@@ -10,6 +10,8 @@ import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
 /**
+ * JSON-P 1.0
+ * 
  * Encoder that can encode JsonObject to be streamed over WebSockets
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */

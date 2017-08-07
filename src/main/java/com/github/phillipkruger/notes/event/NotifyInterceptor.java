@@ -12,7 +12,9 @@ import javax.interceptor.InvocationContext;
 import lombok.extern.java.Log;
 
 /**
+ * CDI 1.1, Interceptors 1.2
  * 
+ * Intercept a method and send a CDI event.
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 @Notify

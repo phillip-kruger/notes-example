@@ -1,5 +1,7 @@
 /* 
+ * Semantic-UI
  * Javascript file for notes.html
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 var webSocket;
 

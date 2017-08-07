@@ -19,6 +19,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
+ * JAX-RS 2.0, JAX-WS 2.2, JAXB 2.2, Bean validation 1.1
+ * 
  * The API for outside consumption. 
  * Just wrapping the actual implementation with SOAP and REST.
  * 

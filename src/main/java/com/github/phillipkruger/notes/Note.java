@@ -22,7 +22,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * JAXB 2.2, Bean Validation 1.1, JPA 2.1 and Lombok
- * Demonstrate how to easy create a POJO with Lombok that can serialize to XML and Json with JAXB.
+ * 
+ * Demonstrate how to easy create a POJO with Lombok that can serialize to XML and Json with JAXB, and also persist to database with JPA
  * 
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */

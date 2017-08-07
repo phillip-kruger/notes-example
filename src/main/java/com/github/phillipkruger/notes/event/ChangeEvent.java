@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 
+ * JAXB 2.2, Bean Validation 1.1, Lombok
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 @Data @NoArgsConstructor @AllArgsConstructor

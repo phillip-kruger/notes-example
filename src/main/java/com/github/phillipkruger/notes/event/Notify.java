@@ -10,7 +10,9 @@ import javax.enterprise.util.Nonbinding;
 import javax.interceptor.InterceptorBinding;
 
 /**
+ * CDI 1.1
  * 
+ * An annotation that will indicate that we should send a notification
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 @Inherited

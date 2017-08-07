@@ -12,6 +12,8 @@ This is a simple application that allows create, read , update and delete notes.
 * Interceptors 1.2 ([JSR 318](https://jcp.org/en/jsr/detail?id=318)) 
 * CDI 1.1 ([JSR 346](http://www.cdi-spec.org/))
 * Web sockets 1.0 ([JSR 356](https://www.jcp.org/en/jsr/detail?id=356))
+* JPA 2.1 ([JSR 338](https://jcp.org/en/jsr/detail?id=338))
+* JSON-P 1.0 ([JSR 353](https://jcp.org/en/jsr/detail?id=353))
 
 Other:
 
@@ -24,8 +26,6 @@ TODO:
 
 * JCache ([JSR 107](https://www.jcp.org/en/jsr/detail?id=107))
 * JSF 2.2 ([JSR 344](https://www.jcp.org/en/jsr/detail?id=344))
-* JPA 2.1 ([JSR 338](https://jcp.org/en/jsr/detail?id=338))
-* JSON-P 1.0 ([JSR 353](https://jcp.org/en/jsr/detail?id=353))
 * Batch 1.0 ([JSR 352](https://jcp.org/en/jsr/detail?id=352))
 * Concurrency 1.0 ([JSR 236](https://jcp.org/en/jsr/detail?id=236))
 

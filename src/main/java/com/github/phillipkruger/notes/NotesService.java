@@ -12,7 +12,9 @@ import javax.validation.constraints.Size;
 import lombok.extern.java.Log;
 
 /**
- * The actual implementation.
+ * EJB 3.2, JPA 2.1, Interceptors 1.2, Bean validation 1.1
+ * 
+ * The actual implementation of the service.
  * Plain old Stateless service.
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */

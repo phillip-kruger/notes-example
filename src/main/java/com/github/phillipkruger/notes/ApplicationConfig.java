@@ -9,6 +9,7 @@ import javax.ws.rs.core.Application;
 
 /**
  * JAX-RS 2.0
+ * 
  * Demonstrate how to activate JAX-RS. 
  * All REST Endpoints available under /api
  * 
