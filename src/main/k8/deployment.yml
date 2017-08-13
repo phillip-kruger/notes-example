@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: @project.build.finalName@-deployment
+  labels:
+    app: @project.build.finalName@
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: @project.build.finalName@
+    spec:
+      containers:
+      - name: @project.build.finalName@-container
+        image: @project.build.finalName@:@project.version@
+        ports:
+        - name: wildfly-port
+          containerPort: 8080

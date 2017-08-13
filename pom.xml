@@ -57,7 +57,7 @@
         
         <!-- JEE Platform -->        
         <jee.version>7.0</jee.version>
-        <lombok.version>1.16.16</lombok.version>
+        <lombok.version>1.16.18</lombok.version>
        
         <!-- Other libs -->
         <apiee.version>1.0.1</apiee.version>
@@ -239,6 +239,40 @@
                         
             </build>
         </profile>
+        
+        <profile>
+            <id>k8</id>
+            <activation>
+                <property>
+                    <name>k8</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.deanjameseverett</groupId>
+                        <artifactId>k8-maven-plugin</artifactId>
+                        <version>1.0.2-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <id>kubernetes</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>startMinikube</goal>
+                                    <goal>deleteImage</goal>
+                                    <goal>buildImage</goal>
+                                    <goal>undeploy</goal>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+        </profile>   
+        
     </profiles>
     
 </project>
