@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html class="no-js" 
+      lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:body>
+
+        <ui:composition template="/templates/layout.xhtml">
+            <ui:define name="content">
+                
+                <div class="jumbotron">
+                    <div class="container">
+                        <h1><i class="fa fa-sticky-note-o" aria-hidden="true"></i> #{i18n['heading']}</h1>
+                        <p>#{i18n['description']}</p>
+                        <p><a class="btn btn-primary btn-lg" href="https://github.com/phillip-kruger/notes-example" target="_blank" role="button"><i class="fa fa-github" aria-hidden="true"></i> #{i18n['learn_more']} </a></p>
+                    </div>
+                </div>
+
+                <div class="container">
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h:form>
+                            <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">#{i18n['add_note']}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <h:inputText id="newNoteTitle" value="#{notesController.newNote.title}" class="form-control" title="#{i18n['title']}" required="true" requiredMessage="#{i18n['title_required']}" pt:placeholder="#{i18n['title']}"></h:inputText>
+                                        </div>
+                                        <div class="form-group">
+                                            <h:inputTextarea rows="3" id="newNoteText" value="#{notesController.newNote.text}" class="form-control" title="#{i18n['text']}" required="true" requiredMessage="#{i18n['text_required']}" pt:placeholder="#{i18n['text']}"></h:inputTextarea>
+                                        </div>
+                                        
+                                        <h:commandLink action="#{notesController.addNote()}" value="#{i18n['save']}" class="pull-right btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </h:commandLink> 
+                                    </div>
+                                    
+                                </div>
+                            </h:form>
+                        </div>
+                        <ui:repeat value="#{notesController.notes}" var="note">
+                            
+                            <div class="col-md-4">
+                                <h:form>
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">#{note.title}</h3>
+                                            
+                                        </div>
+                                        <div class="panel-body">
+                                            
+                                            <h:panelGroup layout="block" binding="#{noteViewMode}" id="noteViewMode">
+                                                #{note.text}
+                                                <hr/>
+                                            
+                                                <h:commandLink action="#{notesController.deleteNote(note.title)}" class="pull-right btn btn-link btn-sm">
+                                                    <i class="fa fa-trash-o" aria-hidden="true" style="color:red;"></i>
+                                                </h:commandLink>
+                                                <i class="fa fa-pencil" aria-hidden="true" onclick="showEdit(event)"></i>
+                                            </h:panelGroup>
+                                            
+                                            
+                                            <h:panelGroup layout="block" binding="#{noteEditMode}" id="noteEditMode" style="display:none;">
+                                                <h:inputTextarea rows="3" id="editNoteText" value="#{note.text}" class="form-control editNote" title="#{i18n['text']}" required="true" requiredMessage="#{i18n['text_required']}" pt:placeholder="#{i18n['text']}"></h:inputTextarea>
+                                                <!--<i class="fa fa-ban" aria-hidden="true" onclick="hideEdit(event)"></i>-->
+                                                <h:commandLink action="#{notesController.updateNote(note.title,note.text)}" class="pull-right btn btn-link btn-sm">
+                                                    <i class="fa fa-check-square" aria-hidden="true"></i> Update
+                                                </h:commandLink>
+                                            </h:panelGroup>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            <script>
+                                                function showEdit(event){
+                                                    event.preventDefault();
+                                                    document.getElementById("#{noteEditMode.clientId}").style.display = 'block';
+                                                    document.getElementById("#{noteViewMode.clientId}").style.display = 'none';
+                                                }
+                                                function hideEdit(event){
+                                                    event.preventDefault();
+                                                    document.getElementById("#{noteViewMode.clientId}").style.display = 'block';
+                                                    document.getElementById("#{noteEditMode.clientId}").style.display = 'node';
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+                                </h:form>    
+                            </div>
+                        </ui:repeat>
+                        
+                    </div>
+
+                </div> 
+            </ui:define>
+
+        </ui:composition>
+
+        
+        
+    </h:body>
+    
+</html>
+

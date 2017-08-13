@@ -65,9 +65,15 @@
         
         <!-- Javascript libraries -->
         <semantic-ui.version>2.2.10</semantic-ui.version>
-        <jquery.version>3.2.1</jquery.version>
-        
+        <jquery.version>2.0.0</jquery.version>
+        <bootstrap.version>3.3.6</bootstrap.version>
+        <font-awesome.version>4.7.0</font-awesome.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
+        
+        <!-- App servers when using autodeploy -->
+        <tomee.installdir>/opt/apache-tomee-plus-7.0.3</tomee.installdir>
+        <payara.installdir>/opt/payara41</payara.installdir>
+        <liberty.installdir>/opt/wlp</liberty.installdir>
     </properties>
     
     <dependencies>
@@ -99,6 +105,7 @@
             <scope>runtime</scope>
         </dependency>
         <!-- Webjars: see http://www.webjars.org/documentation -->
+        <!-- Used in Websocket screens -->
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>semantic-ui</artifactId>
@@ -110,6 +117,20 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>jquery</artifactId>
             <version>${jquery.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- Used in JSF screens -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>${font-awesome.version}</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
@@ -128,8 +149,9 @@
                             <directory>${basedir}/src/main/webapp</directory>
                             <filtering>true</filtering>
                             <includes>
-                                <include>*.css</include>
-                                <include>*.html</include>
+                                <include>**/*.css</include>
+                                <include>**/*.html</include>
+                                <include>**/*.xhtml</include>
                             </includes>
                         </resource>
                     </webResources>
@@ -184,7 +206,7 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>3.1.0</version>
                         <configuration>
-                            <outputDirectory>/opt/apache-tomee-plus-7.0.3/webapps/</outputDirectory>
+                            <outputDirectory>${tomee.installdir}/webapps/</outputDirectory>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -208,7 +230,7 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>3.1.0</version>
                         <configuration>
-                            <outputDirectory>/opt/payara41/glassfish/domains/domain1/autodeploy/</outputDirectory>
+                            <outputDirectory>${payara.installdir}/glassfish/domains/domain1/autodeploy/</outputDirectory>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -232,7 +254,7 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>3.1.0</version>
                         <configuration>
-                            <outputDirectory>/opt/wlp/usr/servers/defaultServer/dropins/</outputDirectory>
+                            <outputDirectory>${liberty.installdir}/usr/servers/defaultServer/dropins/</outputDirectory>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -240,6 +262,7 @@
             </build>
         </profile>
         
+        <!-- Activate using the liberty property: mvn clean install -Dk8 -->
         <profile>
             <id>k8</id>
             <activation>

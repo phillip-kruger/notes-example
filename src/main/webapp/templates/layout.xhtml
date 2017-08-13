@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- Layout for JSF GUIs -->
+<!-- Phillip Kruger (phillip.kruger@phillip-kruger.com)-->
+<html class="no-js"
+    lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <meta charset="utf-8"></meta>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"></meta>
+        
+        <title><ui:insert name="title">#{i18n['heading']}</ui:insert></title>
+
+        <!--Bootstrap css-->
+        <link rel="stylesheet" type="text/css" media="all" href="webjars/bootstrap/${bootstrap.version}/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" media="all" href="webjars/bootstrap/${bootstrap.version}/dist/css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" type="text/css" media="all" href="webjars/font-awesome/${font-awesome.version}/css/font-awesome.min.css" />
+    </h:head>
+ 
+    <h:body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/notes-example"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="/notes-example/api/apiee/index.html" target="_blank">Swagger</a></li>
+                        <li><a href="/notes-example/notes.html" target="_blank">Websockets</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://javaee.github.io/javaserverfaces-spec/" target="_blank">JSF</a></li>
+                        <li><a href="http://www.webjars.org/" target="_blank">Webjars</a></li>
+                        <li><a href="https://getbootstrap.com/docs/3.3/" target="_blank">Bootstrap</a></li>
+                        <li><a href="http://fontawesome.io/" target="_blank">Font Awesome</a></li>
+
+                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Language <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <h:form>
+                                    <li><h:commandLink action="#{languageController.change('af')}">Afrikaans</h:commandLink></li>
+                                    <li><h:commandLink action="#{languageController.change('en')}">English</h:commandLink></li>
+                                </h:form>
+                            </ul>
+                        </li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="content">
+            <ui:insert name="content" >
+                <ui:include src="/templates/content.xhtml" />
+            </ui:insert>
+        </div>
+            
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="/templates/footer.xhtml" />
+            </ui:insert>
+        </div>
+        
+        
+        <script type="text/javascript" src="webjars/jquery/${jquery.version}/jquery.js" />
+        <script type="text/javascript" src="webjars/bootstrap/${bootstrap.version}/dist/js/bootstrap.min.js" />
+        <script type="text/javascript" src="webjars/bootstrap/${bootstrap.version}/js/collapse.js" />
+        <script type="text/javascript" src="webjars/bootstrap/${bootstrap.version}/js/transition.js" />
+        
+    </h:body>
+</html>
