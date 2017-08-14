@@ -21,8 +21,8 @@ Other:
 * POJO with [Lombok](https://projectlombok.org/)
 * [Apiee](https://github.com/phillip-kruger/apiee) for creating [Swagger](http://swagger.io/) and [Swagger UI](http://swagger.io/swagger-ui/)
 * [Stompee](https://github.com/phillip-kruger/stompee) to view the log file
-* [Semantic-UI](https://semantic-ui.com/) (via [webjars](http://www.webjars.org/))
-* [Bootstrap 3](https://getbootstrap.com/docs/3.3/) in the JSF GUI
+* [Semantic-UI](https://semantic-ui.com/) in the Websocket GUI (via [webjars](http://www.webjars.org/))
+* [Bootstrap 3](https://getbootstrap.com/docs/3.3/) in the JSF GUI (via [webjars](http://www.webjars.org/))
 
 TODO:
 

@@ -56,6 +56,7 @@ public class LanguageController implements Serializable {
         languages = new LinkedHashMap<>();
         languages.put("English", Locale.ENGLISH);
         languages.put("Afrikaans", new Locale("af"));
+        languages.put("Hindi", new Locale("hi"));
     }
     
     private static final String DEFAULT_LANGUAGE = "English";
