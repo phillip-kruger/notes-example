@@ -1,6 +1,7 @@
-# Notes Application #
+# Notes Application
 ![](https://raw.githubusercontent.com/phillip-kruger/notes-example/master/notes-example.png)
-## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html) ##
+
+## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html)
 
 This is a simple application that allows create, read , update and delete notes. 
 
