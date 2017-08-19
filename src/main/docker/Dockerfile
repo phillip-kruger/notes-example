@@ -1,4 +1,4 @@
-FROM airhacks/wildfly
+FROM phillipkruger/wildfly
 MAINTAINER Phillip Kruger, phillip-kruger.com
 ENV DEPLOYMENT_DIR ${WILDFLY_HOME}/standalone/deployments/
 RUN rm ${WILDFLY_HOME}/bin/standalone.conf
