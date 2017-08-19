@@ -3,8 +3,8 @@
 
 ## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html)
 
-* [Quick start](wiki/Quick-start)
-* [Kubernetes](wiki/Kubernetes)
+* [Quick start](https://github.com/phillip-kruger/notes-example/wiki/Overview)
+* [Kubernetes](https://github.com/phillip-kruger/notes-example/wiki/Kubernetes)
 
 This is a simple application that allows create, read , update and delete notes. 
 
