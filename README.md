@@ -3,6 +3,9 @@
 
 ## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html)
 
+* [Quick start](wiki/Quick-start)
+* [Kubernetes](wiki/Kubernetes)
+
 This is a simple application that allows create, read , update and delete notes. 
 
 ### Specifications
@@ -56,4 +59,6 @@ This is a simple application that allows create, read , update and delete notes.
 * JSR 374 - Java API for JSON Processing 1.1
 * JSR 375 - Java EE Security API 1.0
 
-More details [here](https://github.com/phillip-kruger/notes-example/wiki) 
+### High level design
+
+![](https://lh4.googleusercontent.com/4ZjO_pWAghDSHonEQjFiWHCKD-ygs8_1AgZId0dF2AXJ6Wue_YcPcbvtdTbUSWwhM6ubF3XYqEcyBHQ=w1920-h901)
