@@ -21,6 +21,7 @@ This is a simple application that allows create, read , update and delete notes.
 * JPA 2.1 ([JSR 338](https://jcp.org/en/jsr/detail?id=338))
 * JSON-P 1.0 ([JSR 353](https://jcp.org/en/jsr/detail?id=353))
 * JSF 2.2 ([JSR 344](https://www.jcp.org/en/jsr/detail?id=344))
+* JMS 2.0 ([JSR 343])(https://jcp.org/en/jsr/detail?id=343)
 
 ### Libraries
 
@@ -44,7 +45,6 @@ This is a simple application that allows create, read , update and delete notes.
 * Batch 1.0 ([JSR 352](https://jcp.org/en/jsr/detail?id=352))
 * Concurrency 1.0 ([JSR 236](https://jcp.org/en/jsr/detail?id=236))
 * MVC 1.0 ([JSR 371](https://www.mvc-spec.org/))
-* JMS 2.0 ([JSR 343])(https://jcp.org/en/jsr/detail?id=343)
 
 ### Later (once Java EE8 is released)
 
