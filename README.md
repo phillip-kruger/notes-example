@@ -1,5 +1,5 @@
 # Notes Application #
-![](https://raw.githubusercontent.com/phillip-kruger/notes-example/master/src/main/resources/apiee.png)
+![](https://raw.githubusercontent.com/phillip-kruger/notes-example/master/notes-example.png)
 ## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html) ##
 
 This is a simple application that allows create, read , update and delete notes. 
@@ -40,5 +40,19 @@ This is a simple application that allows create, read , update and delete notes.
 * Batch 1.0 ([JSR 352](https://jcp.org/en/jsr/detail?id=352))
 * Concurrency 1.0 ([JSR 236](https://jcp.org/en/jsr/detail?id=236))
 * MVC 1.0 ([JSR 371](https://www.mvc-spec.org/))
+* JMS 2.0 ([JSR 343])(https://jcp.org/en/jsr/detail?id=343)
+
+### Later (once Java EE8 is released)
+
+* JSR 366 - Java EE 8
+* JSR 367 - The Java API for JSON Binding
+* JSR 368 - Java Message Service 2.1
+* JSR 369 - Java Servlet 4.0
+* JSR 370 - Java API for RESTful Web Services 2.1
+* JSR 371 - Model-View-Controller 1.0
+* JSR 372 - Java Server Faces 2.3
+* JSR 373 - Java EE Management API 1.0
+* JSR 374 - Java API for JSON Processing 1.1
+* JSR 375 - Java EE Security API 1.0
 
 More details [here](https://github.com/phillip-kruger/notes-example/wiki) 
