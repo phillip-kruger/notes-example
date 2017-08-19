@@ -2,7 +2,9 @@
 ![](https://raw.githubusercontent.com/phillip-kruger/notes-example/master/src/main/resources/apiee.png)
 ## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html) ##
 
-This is a simple application that allows create, read , update and delete notes. It use the following specifications and libraries:
+This is a simple application that allows create, read , update and delete notes. 
+
+### Specifications
 
 * JAX-RS 2.0 ([JSR 339](https://www.jcp.org/en/jsr/detail?id=339))
 * JAX-WS 2.2 ([JSR 224](https://www.jcp.org/en/jsr/detail?id=224))
@@ -16,7 +18,7 @@ This is a simple application that allows create, read , update and delete notes.
 * JSON-P 1.0 ([JSR 353](https://jcp.org/en/jsr/detail?id=353))
 * JSF 2.2 ([JSR 344](https://www.jcp.org/en/jsr/detail?id=344))
 
-Other:
+### Libraries
 
 * POJO with [Lombok](https://projectlombok.org/)
 * [Apiee](https://github.com/phillip-kruger/apiee) for creating [Swagger](http://swagger.io/) and [Swagger UI](http://swagger.io/swagger-ui/)
@@ -24,7 +26,15 @@ Other:
 * [Semantic-UI](https://semantic-ui.com/) in the Websocket GUI (via [webjars](http://www.webjars.org/))
 * [Bootstrap 3](https://getbootstrap.com/docs/3.3/) in the JSF GUI (via [webjars](http://www.webjars.org/))
 
-TODO:
+### Deployment
+
+* [Wildfly](http://www.wildfly.org/)
+* [TomEE](http://tomee.apache.org/)
+* [Payara](https://www.payara.fish/)
+* [IBM Liberty](https://developer.ibm.com/wasdev/websphere-liberty/)
+* [Docker](https://www.docker.com/) and [Kubernetes](https://kubernetes.io/)
+
+### TODO
 
 * JCache ([JSR 107](https://www.jcp.org/en/jsr/detail?id=107))
 * Batch 1.0 ([JSR 352](https://jcp.org/en/jsr/detail?id=352))
