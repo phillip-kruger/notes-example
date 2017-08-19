@@ -26,7 +26,7 @@ import javax.websocket.server.ServerEndpoint;
 import lombok.extern.java.Log;
 
 /**
- * Web sockets 1.0, JSON-P 1.0
+ * Web sockets 1.0, CDI 1.1
  * 
  * Endpoint for the websocket service
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)

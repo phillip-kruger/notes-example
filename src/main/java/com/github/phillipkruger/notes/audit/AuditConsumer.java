@@ -1,0 +1,44 @@
+package com.github.phillipkruger.notes.audit;
+
+import java.util.logging.Level;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.jms.JMSException;
+
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import lombok.extern.java.Log;
+
+/**
+ * JMS 2.0.
+ * Receive a Audit message
+ * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
+ */
+@Log
+@MessageDriven(mappedName="jms/auditQueue", activationConfig =  {
+        @ActivationConfigProperty(propertyName = "acknowledgeMode",
+                                  propertyValue = "Auto-acknowledge"),
+        @ActivationConfigProperty(propertyName = "destinationType",
+                                  propertyValue = "javax.jms.Queue"),
+        @ActivationConfigProperty(propertyName = "destination",
+                propertyValue = "java:app/jms/auditQueue")
+    })
+public class AuditConsumer implements MessageListener {
+    
+    @Override
+    public void onMessage(Message message) {
+        try {
+            String action = message.getStringProperty(ACTION_PROPERTY);
+            byte[] o = message.getBody(byte[].class);
+            print(action,new String(o));
+        } catch (JMSException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    
+    private void print(String action,String object){
+        log.log(Level.SEVERE, "{0}| {1}", new Object[]{action, object});
+    }
+    
+    private static final String ACTION_PROPERTY = "ChangeEvent";
+}

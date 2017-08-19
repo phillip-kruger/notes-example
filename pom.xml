@@ -275,7 +275,7 @@
                     <plugin>
                         <groupId>com.github.deanjameseverett</groupId>
                         <artifactId>k8-maven-plugin</artifactId>
-                        <version>1.0.2-SNAPSHOT</version>
+                        <version>1.0.3</version>
                         <executions>
                             <execution>
                                 <id>kubernetes</id>

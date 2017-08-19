@@ -1,5 +1,5 @@
 # Notes Application
-![](https://raw.githubusercontent.com/phillip-kruger/notes-example/master/notes-example.png)
+![](https://raw.githubusercontent.com/phillip-kruger/notes-example/master/build-on.png)
 
 ## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html)
 
@@ -61,4 +61,4 @@ This is a simple application that allows create, read , update and delete notes.
 
 ### High level design
 
-![](https://lh4.googleusercontent.com/4ZjO_pWAghDSHonEQjFiWHCKD-ygs8_1AgZId0dF2AXJ6Wue_YcPcbvtdTbUSWwhM6ubF3XYqEcyBHQ=w1920-h901)
+![](https://raw.githubusercontent.com/phillip-kruger/notes-example/master/notes-example.png)

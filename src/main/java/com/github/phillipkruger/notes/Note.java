@@ -44,6 +44,7 @@ public class Note implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
+    @XmlAttribute(required=true)
     private Long id;
     
     @NotNull @XmlAttribute(required=false) 
