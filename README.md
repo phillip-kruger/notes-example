@@ -45,7 +45,7 @@ This is a simple application that allows create, read , update and delete notes.
 * Batch 1.0 ([JSR 352](https://jcp.org/en/jsr/detail?id=352))
 * Concurrency 1.0 ([JSR 236](https://jcp.org/en/jsr/detail?id=236))
 * MVC 1.0 ([JSR 371](https://www.mvc-spec.org/))
-* JCA 1.7
+* JCA 1.7 ([JSR 322](https://jcp.org/en/jsr/detail?id=322))
 
 ### Later (once Java EE8 is released)
 
