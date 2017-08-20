@@ -36,7 +36,7 @@ This is a simple application that allows create, read , update and delete notes.
 * [Wildfly](http://www.wildfly.org/)
 * [TomEE](http://tomee.apache.org/)
 * [Payara](https://www.payara.fish/)
-* [IBM Liberty](https://developer.ibm.com/wasdev/websphere-liberty/)
+* [IBM Liberty](https://developer.ibm.com/wasdev/websphere-liberty/) (not working :( )
 * [Docker](https://www.docker.com/) and [Kubernetes](https://kubernetes.io/)
 
 ### TODO
@@ -45,6 +45,7 @@ This is a simple application that allows create, read , update and delete notes.
 * Batch 1.0 ([JSR 352](https://jcp.org/en/jsr/detail?id=352))
 * Concurrency 1.0 ([JSR 236](https://jcp.org/en/jsr/detail?id=236))
 * MVC 1.0 ([JSR 371](https://www.mvc-spec.org/))
+* JCA 1.7
 
 ### Later (once Java EE8 is released)
 
@@ -93,6 +94,7 @@ Edit the server.xml with the following:
 * Make sure the default datastore exist:
 
 In /opt/wlp/usr/shared/resources:
+
     mkdir derby
     cd derby
     wget https://repo1.maven.org/maven2/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
