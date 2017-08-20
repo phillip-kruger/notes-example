@@ -15,14 +15,14 @@ import lombok.extern.java.Log;
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 @Log
-@MessageDriven(mappedName="jms/auditQueue", activationConfig =  {
-        @ActivationConfigProperty(propertyName = "acknowledgeMode",
-                                  propertyValue = "Auto-acknowledge"),
-        @ActivationConfigProperty(propertyName = "destinationType",
-                                  propertyValue = "javax.jms.Queue"),
-        @ActivationConfigProperty(propertyName = "destination",
-                propertyValue = "java:app/jms/auditQueue")
-    })
+@MessageDriven(mappedName="java:global/jms/notesQueue",activationConfig =  {
+    @ActivationConfigProperty(propertyName = "acknowledgeMode",
+                              propertyValue = "Auto-acknowledge"),
+    @ActivationConfigProperty(propertyName = "destinationType",
+                              propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "destination",
+            propertyValue = "notesQueue")
+})
 public class AuditConsumer implements MessageListener {
     
     @Override
