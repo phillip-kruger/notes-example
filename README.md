@@ -114,4 +114,4 @@ In server.xml
 
 * Configure the Queue (there is not default it seems ?) (see [this link](https://www.ibm.com/support/knowledgecenter/en/was_beta_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_msg_single_p2p.html))
  
-    TODO: Figure this out ....
+    TODO: Figure this out .... [See this](https://www.ibm.com/support/knowledgecenter/en/SS7K4U_8.5.5/com.ibm.websphere.wlp.zseries.doc/ae/rwlp_feature_jca-1.7.html)
