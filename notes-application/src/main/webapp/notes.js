@@ -31,7 +31,7 @@ function openSocket(){
         new_uri = "ws:";
     }
     new_uri += "//" + loc.host;
-    new_uri += "/notes-example/note";
+    new_uri += "/notes-application/note";
     webSocket = new WebSocket(new_uri);
 
     /**
