@@ -3,7 +3,6 @@ package com.github.phillipkruger.notes.listener.client;
 import java.io.IOException;
 import java.net.URI;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Destroyed;
 import javax.enterprise.context.Initialized;
@@ -27,7 +26,7 @@ public class MessageClientListener {
     public void init(@Observes @Initialized(ApplicationScoped.class) ServletContext init) {
         
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-        String uri = "ws://localhost:8080/notes-application/note";
+        String uri = "ws://localhost:8080/notes-application/note"; // TODO: Move to configuration ?
         
         try {
             container.connectToServer(MessageClientEndpoint.class, URI.create(uri));
