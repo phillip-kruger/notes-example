@@ -5,6 +5,7 @@ import com.github.phillipkruger.notes.NoteNotFoundException;
 import com.github.phillipkruger.notes.NotesService;
 import com.github.phillipkruger.notes.event.ChangeEvent;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonWriter;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -79,9 +81,9 @@ public class NotesSocket {
         if(!sessions.isEmpty()){
             sessions.forEach((session) -> {
                 try {
-                    session.getBasicRemote().sendObject(toJSON(note));
-                    //session.getBasicRemote().sendText(toString(note));
-                } catch (IOException | EncodeException ex) {
+                    //session.getBasicRemote().sendObject(toJSON(note));// Does not work on OpenLiberty
+                    session.getBasicRemote().sendText(toString(note));
+                } catch (IOException  ex){//(IOException | EncodeException ex) {
                     log.log(Level.SEVERE, null, ex);
                 }
             });
@@ -92,9 +94,9 @@ public class NotesSocket {
         if(!sessions.isEmpty()){
             sessions.forEach((session) -> {
                 try {
-                    session.getBasicRemote().sendObject(toJSON(changeEvent));
-                    //session.getBasicRemote().sendText(toString(changeEvent));
-                } catch (IOException | EncodeException ex) {
+                    //session.getBasicRemote().sendObject(toJSON(changeEvent)); // Does not work on OpenLiberty
+                    session.getBasicRemote().sendText(toString(changeEvent));
+                } catch (IOException  ex){//(IOException | EncodeException ex) {
                     log.log(Level.SEVERE, null, ex);
                 }
             });
@@ -126,23 +128,23 @@ public class NotesSocket {
     }
     
     
-//    private String toString(ChangeEvent ce) throws IOException{
-//        JsonObject jo = toJSON(ce);
-//        return toString(jo);
-//    }
+    private String toString(ChangeEvent ce) throws IOException{
+        JsonObject jo = toJSON(ce);
+        return toString(jo);
+    }
     
-//    private String toString(Note note) throws IOException{
-//        JsonObject jo = toJSON(note);
-//        return toString(jo);
-//    }
-//    
-//    private String toString(JsonObject jo) throws IOException{
-//        try (StringWriter sw = new StringWriter(); 
-//                JsonWriter jw = Json.createWriter(sw)) {
-//            jw.writeObject(jo);
-//            return sw.toString();
-//        }
-//    }
+    private String toString(Note note) throws IOException{
+        JsonObject jo = toJSON(note);
+        return toString(jo);
+    }
+    
+    private String toString(JsonObject jo) throws IOException{
+        try (StringWriter sw = new StringWriter(); 
+                JsonWriter jw = Json.createWriter(sw)) {
+            jw.writeObject(jo);
+            return sw.toString();
+        }
+    }
     
     private String toJSONDate(Date date){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
