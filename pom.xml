@@ -49,8 +49,44 @@
         </developer>
     </developers>
     
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Java version -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <!-- JEE Platform -->        
+        <jee.version>7.0</jee.version>
+        <lombok.version>1.16.18</lombok.version>
+       
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        
+        <!-- Logging settings -->
+        <log.level>FINEST</log.level> 
+        <log.name>com.github.phillipkruger</log.name>
+    </properties>
+    
+    
+    <dependencies>
+        <!-- Jave ee -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${jee.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+    </dependencies>
     
     <modules>
         <module>notes-application</module>
+        <module>notes-listener</module>
     </modules>
 </project>

@@ -15,62 +15,35 @@
     <name>notes-application</name>
     
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Java version -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        
-        <!-- JEE Platform -->        
-        <jee.version>7.0</jee.version>
-        <lombok.version>1.16.18</lombok.version>
-       
         <!-- Other libs -->
-        <apiee.version>1.0.1</apiee.version>
         <stompee.version>1.1.3</stompee.version>
+        <apiee.version>1.0.1</apiee.version>
         
         <!-- Javascript libraries -->
         <semantic-ui.version>2.2.10</semantic-ui.version>
         <jquery.version>2.0.0</jquery.version>
         <bootstrap.version>3.3.7</bootstrap.version>
         <font-awesome.version>4.7.0</font-awesome.version>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
         
         <!-- App servers when using autodeploy -->
         <tomee.installdir>/opt/server/apache-tomee-plume-7.0.4</tomee.installdir>
         <payara.installdir>/opt/server/payara41/</payara.installdir>
         
-        <!-- Logging settings -->
-        <log.level>FINEST</log.level> 
-        <log.name>com.github.phillipkruger</log.name>
     </properties>
     
     <dependencies>
-        <!-- Jave ee -->
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${jee.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Apiee -->
-        <dependency>
-            <groupId>com.github.phillip-kruger</groupId>
-            <artifactId>apiee-core</artifactId>
-            <version>${apiee.version}</version>
-        </dependency>
         <!-- Stompee -->
         <dependency>
             <groupId>com.github.phillip-kruger</groupId>
             <artifactId>stompee-core</artifactId>
             <version>${stompee.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <!-- Apiee -->
+        <dependency>
+            <groupId>com.github.phillip-kruger</groupId>
+            <artifactId>apiee-core</artifactId>
+            <version>${apiee.version}</version>
         </dependency>
         <!-- Webjars: see http://www.webjars.org/documentation -->
         <!-- Used in Websocket screens -->
@@ -124,26 +97,6 @@
                         </resource>
                     </webResources>
                     
-                </configuration>
-            </plugin>
-            <!-- Open liberty configuration plugin -->
-            <plugin>
-                <groupId>net.wasdev.wlp.maven.plugins</groupId>
-                <artifactId>liberty-maven-plugin</artifactId>
-                <version>2.1.1</version>
-                <configuration>
-                    <assemblyArtifact>
-                        <groupId>io.openliberty</groupId>
-                        <artifactId>openliberty-runtime</artifactId>
-                        <version>${openliberty.version}</version>
-                        <type>zip</type>
-                    </assemblyArtifact>
-
-                    <configFile>${project.build.directory}/server.xml</configFile>
-                    <bootstrapProperties>
-                        <httpPort>${openliberty.http.port}</httpPort>
-                        <httpsPort>${openliberty.https.port}</httpsPort>
-                    </bootstrapProperties>
                 </configuration>
             </plugin>
         </plugins>

@@ -2,10 +2,6 @@ package com.github.phillipkruger.notes.socket;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
@@ -36,8 +32,6 @@ public class JsonEncoder implements Encoder.Text<JsonObject> {
         }
     }
 
-    
-    
     @Override
     public void destroy() {}
 
