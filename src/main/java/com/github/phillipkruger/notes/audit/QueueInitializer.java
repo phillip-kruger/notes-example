@@ -5,7 +5,6 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.inject.Produces;
 import javax.jms.JMSDestinationDefinition;
-import javax.jms.JMSDestinationDefinitions;
 import javax.jms.Queue;
 
 /**
@@ -13,21 +12,18 @@ import javax.jms.Queue;
  * Create the queue and expose as CDI resource
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
-@JMSDestinationDefinitions(
-        value = {
-            @JMSDestinationDefinition(
-                    name = "java:global/jms/notesQueue",
-                    interfaceName = "javax.jms.Queue",
-                    destinationName = "notesQueue"
-            )
-        }
+
+@JMSDestinationDefinition(
+    name = "jms/notesQueue",//"java:global/jms/notesQueue"
+    interfaceName = "javax.jms.Queue",
+    destinationName = "notesQueue"
 )
 @Startup
 @Singleton
 public class QueueInitializer {
-
-    @Resource(mappedName="java:global/jms/notesQueue")
-    private Queue queue;      
+        
+    @Resource(lookup="jms/notesQueue")//mappedName="java:global/jms/notesQueue"
+    private Queue queue;
     
     @Produces @NotesQueue
     public Queue expose() {

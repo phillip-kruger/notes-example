@@ -32,7 +32,7 @@ import lombok.extern.java.Log;
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 @Log
-@ServerEndpoint(value = "/note",encoders = {JsonEncoder.class})
+@ServerEndpoint(value = "/note",encoders = {com.github.phillipkruger.notes.socket.JsonEncoder.class})
 public class NotesSocket {
     
     @Inject 
@@ -80,6 +80,7 @@ public class NotesSocket {
             sessions.forEach((session) -> {
                 try {
                     session.getBasicRemote().sendObject(toJSON(note));
+                    //session.getBasicRemote().sendText(toString(note));
                 } catch (IOException | EncodeException ex) {
                     log.log(Level.SEVERE, null, ex);
                 }
@@ -92,6 +93,7 @@ public class NotesSocket {
             sessions.forEach((session) -> {
                 try {
                     session.getBasicRemote().sendObject(toJSON(changeEvent));
+                    //session.getBasicRemote().sendText(toString(changeEvent));
                 } catch (IOException | EncodeException ex) {
                     log.log(Level.SEVERE, null, ex);
                 }
@@ -122,6 +124,25 @@ public class NotesSocket {
         job.add("text", note.getText());
         return job.build();
     }
+    
+    
+//    private String toString(ChangeEvent ce) throws IOException{
+//        JsonObject jo = toJSON(ce);
+//        return toString(jo);
+//    }
+    
+//    private String toString(Note note) throws IOException{
+//        JsonObject jo = toJSON(note);
+//        return toString(jo);
+//    }
+//    
+//    private String toString(JsonObject jo) throws IOException{
+//        try (StringWriter sw = new StringWriter(); 
+//                JsonWriter jw = Json.createWriter(sw)) {
+//            jw.writeObject(jo);
+//            return sw.toString();
+//        }
+//    }
     
     private String toJSONDate(Date date){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");

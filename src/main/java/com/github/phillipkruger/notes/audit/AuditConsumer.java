@@ -1,7 +1,6 @@
 package com.github.phillipkruger.notes.audit;
 
 import java.util.logging.Level;
-import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 
@@ -15,14 +14,15 @@ import lombok.extern.java.Log;
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
 @Log
-@MessageDriven(mappedName="java:global/jms/notesQueue",activationConfig =  {
-    @ActivationConfigProperty(propertyName = "acknowledgeMode",
-                              propertyValue = "Auto-acknowledge"),
-    @ActivationConfigProperty(propertyName = "destinationType",
-                              propertyValue = "javax.jms.Queue"),
-    @ActivationConfigProperty(propertyName = "destination",
-            propertyValue = "notesQueue")
-})
+@MessageDriven(name ="notesQueueMDB")
+//@MessageDriven(mappedName="java:global/jms/notesQueue",activationConfig =  {
+//    @ActivationConfigProperty(propertyName = "acknowledgeMode",
+//                              propertyValue = "Auto-acknowledge"),
+//    @ActivationConfigProperty(propertyName = "destinationType",
+//                              propertyValue = "javax.jms.Queue"),
+//    @ActivationConfigProperty(propertyName = "destination",
+//            propertyValue = "notesQueue")
+//})
 public class AuditConsumer implements MessageListener {
     
     @Override
@@ -37,7 +37,7 @@ public class AuditConsumer implements MessageListener {
     }
     
     private void print(String action,String object){
-        log.log(Level.SEVERE, "{0}| {1}", new Object[]{action, object});
+        log.log(Level.SEVERE, "AUDIT: {0}| {1}", new Object[]{action, object});
     }
     
     private static final String ACTION_PROPERTY = "ChangeEvent";

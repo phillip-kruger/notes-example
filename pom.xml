@@ -66,14 +66,17 @@
         <!-- Javascript libraries -->
         <semantic-ui.version>2.2.10</semantic-ui.version>
         <jquery.version>2.0.0</jquery.version>
-        <bootstrap.version>3.3.6</bootstrap.version>
+        <bootstrap.version>3.3.7</bootstrap.version>
         <font-awesome.version>4.7.0</font-awesome.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         
         <!-- App servers when using autodeploy -->
-        <tomee.installdir>/opt/apache-tomee-plus-7.0.3</tomee.installdir>
-        <payara.installdir>/opt/payara41</payara.installdir>
-        <liberty.installdir>/opt/wlp</liberty.installdir>
+        <tomee.installdir>/opt/server/apache-tomee-plume-7.0.4</tomee.installdir>
+        <payara.installdir>/opt/server/payara41/</payara.installdir>
+        
+        <!-- Logging settings -->
+        <log.level>FINEST</log.level> 
+        <log.name>com.github.phillipkruger</log.name>
     </properties>
     
     <dependencies>
@@ -158,10 +161,138 @@
                     
                 </configuration>
             </plugin>
+            <!-- Open liberty configuration plugin -->
+            <plugin>
+                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <assemblyArtifact>
+                        <groupId>io.openliberty</groupId>
+                        <artifactId>openliberty-runtime</artifactId>
+                        <version>${openliberty.version}</version>
+                        <type>zip</type>
+                    </assemblyArtifact>
+
+                    <configFile>${project.build.directory}/server.xml</configFile>
+                    <bootstrapProperties>
+                        <httpPort>${openliberty.http.port}</httpPort>
+                        <httpsPort>${openliberty.https.port}</httpsPort>
+                    </bootstrapProperties>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     
     <profiles>
+        <!-- Activate using the liberty property: mvn clean install -Dliberty -->
+        <profile>
+            <id>liberty</id>
+            <activation>
+                <property>
+                    <name>liberty</name>
+                </property>
+            </activation>
+            <properties>
+                <openliberty.version>17.0.0.3</openliberty.version>
+                <openliberty.http.port>8080</openliberty.http.port>
+                <openliberty.https.port>8443</openliberty.https.port>
+                <openliberty.maven.version>2.1.1</openliberty.maven.version>
+                <derby.version>10.14.1.0</derby.version>
+            </properties>
+            
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${basedir}/src/main/liberty/config</directory>
+                        <targetPath>${project.build.directory}</targetPath>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>server.xml</include>
+                        </includes>
+                    </resource>
+                    <resource>
+                        <directory>${basedir}/src/main/resources</directory>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                        <artifactId>liberty-maven-plugin</artifactId>
+                        <version>${openliberty.maven.version}</version>
+                        <configuration>
+                            <assemblyArtifact>
+                                <groupId>io.openliberty</groupId>
+                                <artifactId>openliberty-runtime</artifactId>
+                                <version>${openliberty.version}</version>
+                                <type>zip</type>
+                            </assemblyArtifact>
+
+                            <configFile>${project.build.directory}/server.xml</configFile>
+                            <bootstrapProperties>
+                                <httpPort>${openliberty.http.port}</httpPort>
+                                <httpsPort>${openliberty.https.port}</httpsPort>
+                            </bootstrapProperties>
+                        </configuration>
+                        <executions>
+                            
+                            <execution>
+                                <id>1</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>install-server</goal>
+                                    <goal>create-server</goal>
+                                </goals>
+                            </execution>
+                        
+                            <execution>
+                                <id>3</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run-server</goal>    
+                                </goals>
+                            </execution>
+                        
+                        </executions>
+                    </plugin>
+
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>2</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludeScope>test</excludeScope>
+                            
+                            <artifactItems>
+
+                                <artifactItem>
+                                    <groupId>org.apache.derby</groupId>
+                                    <artifactId>derby</artifactId>
+                                    <version>${derby.version}</version>
+                                    <type>jar</type>
+                                    
+                                    <outputDirectory>${project.build.directory}/liberty/wlp/usr/servers/defaultServer/lib</outputDirectory>
+                                </artifactItem>
+                                
+                            </artifactItems>
+                        </configuration>
+                    </plugin>
+
+
+                </plugins>
+                        
+            </build>
+        </profile>
+        
         <!-- Activate using the wildfly property: mvn clean install -Dwildfly -->
         <profile>
             <id>wildfly</id>
@@ -175,7 +306,7 @@
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>
                         <artifactId>wildfly-maven-plugin</artifactId>
-                        <version>1.2.0.Alpha5</version>
+                        <version>1.2.0.Final</version>
                         <executions>
                             <execution>
                                 <phase>install</phase>
@@ -238,31 +369,7 @@
             </build>
         </profile>
         
-        <!-- Activate using the liberty property: mvn clean install -Dliberty -->
-        <profile>
-            <id>liberty</id>
-            <activation>
-                <property>
-                    <name>liberty</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <configuration>
-                            <outputDirectory>${liberty.installdir}/usr/servers/defaultServer/dropins/</outputDirectory>
-                        </configuration>
-                    </plugin>
-                </plugins>
-                        
-            </build>
-        </profile>
-        
-        <!-- Activate using the liberty property: mvn clean install -Dk8 -->
+        <!-- Activate using the k8n property: mvn clean install -Dk8 -->
         <profile>
             <id>k8</id>
             <activation>

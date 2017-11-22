@@ -31,10 +31,23 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <h:inputText id="newNoteTitle" value="#{notesController.newNote.title}" class="form-control" title="#{i18n['title']}" required="true" requiredMessage="#{i18n['title_required']}" pt:placeholder="#{i18n['title']}"></h:inputText>
+                                            <h:inputText id="newNoteTitle" 
+                                                         value="#{notesController.newNote.title}" 
+                                                         class="form-control" 
+                                                         title="#{i18n['title']}" 
+                                                         required="true" 
+                                                         requiredMessage="#{i18n['title_required']}" 
+                                                         pt:placeholder="#{i18n['title']}"></h:inputText>
                                         </div>
                                         <div class="form-group">
-                                            <h:inputTextarea rows="3" id="newNoteText" value="#{notesController.newNote.text}" class="form-control" title="#{i18n['text']}" required="true" requiredMessage="#{i18n['text_required']}" pt:placeholder="#{i18n['text']}"></h:inputTextarea>
+                                            <h:inputTextarea id="newNoteText" 
+                                                        rows="3"                                                 
+                                                        value="#{notesController.newNote.text}" 
+                                                        class="form-control" 
+                                                        title="#{i18n['text']}" 
+                                                        required="true" 
+                                                        requiredMessage="#{i18n['text_required']}" 
+                                                        pt:placeholder="#{i18n['text']}"></h:inputTextarea>
                                         </div>
                                         
                                         <h:commandLink action="#{notesController.addNote()}" value="#{i18n['save']}" class="pull-right btn btn-default btn-sm">

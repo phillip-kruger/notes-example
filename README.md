@@ -3,7 +3,7 @@
 
 ## Example application to demonstrate [Java EE 7](http://www.oracle.com/technetwork/java/javaee/tech/index.html)
 
-* [Quick start](https://github.com/phillip-kruger/notes-example/wiki/Overview)
+* [Quick start](https://github.com/phillip-kruger/notes-example/wiki/Quick-start)
 * [Kubernetes](https://github.com/phillip-kruger/notes-example/wiki/Kubernetes)
 
 This is a simple application that allows create, read , update and delete notes. 
@@ -81,37 +81,5 @@ In `conf/system.properties` add:
 
     openejb.environment.default = true
 
-### IBM WAS Liberty
-
-Edit the server.xml with the following:
-
-* Change the port to 8080 (to be the same as other app servers)
-
-    <httpEndpoint id="defaultHttpEndpoint"
-                  httpPort="8080"
-                  httpsPort="9443" />
-
-* Make sure the default datastore exist:
-
-In /opt/wlp/usr/shared/resources:
-
-    mkdir derby
-    cd derby
-    wget https://repo1.maven.org/maven2/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
-
-In server.xml
-    
-    <dataSource id="DefaultDataSource">
-        <jdbcDriver>
-            <library name="derbyLibrary">
-               <fileset dir="${shared.resource.dir}/derby"/>
-            </library>
-        </jdbcDriver>
-        <properties.derby.embedded databaseName="memory:notesdatabase"
-                    createDatabase="create" />
-    </dataSource>
-
-
-* Configure the Queue (there is not default it seems ?) (see [this link](https://www.ibm.com/support/knowledgecenter/en/was_beta_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_msg_single_p2p.html))
- 
-    TODO: Figure this out .... [See this](https://www.ibm.com/support/knowledgecenter/en/SS7K4U_8.5.5/com.ibm.websphere.wlp.zseries.doc/ae/rwlp_feature_jca-1.7.html)
+### OpenLiberty
+Can not get JMSDestinationDefinition to work :(

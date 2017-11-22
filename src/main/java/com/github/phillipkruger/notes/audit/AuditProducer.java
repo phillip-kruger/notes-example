@@ -5,21 +5,21 @@ import com.github.phillipkruger.notes.event.ChangeEvent;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
 import javax.jms.Queue;
-import lombok.extern.java.Log;
 
 /**
  * CDI 1.1, JMS 2.0.
  * Create a Audit message
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
-@Log
 @Stateless
 public class AuditProducer {
 
     @Inject
+    @JMSConnectionFactory("jms/notesQueueCF") // Not needed if not OpenLiberty
     private JMSContext context;
     
     @Inject
