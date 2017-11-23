@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.websocket.ClientEndpoint;
 import javax.websocket.DeploymentException;
 import javax.websocket.OnClose;
-import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.Session;
 import lombok.extern.java.Log;

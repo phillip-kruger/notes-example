@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.websocket.ContainerProvider;
 import javax.websocket.DeploymentException;
@@ -18,7 +18,7 @@ import org.eclipse.microprofile.faulttolerance.Retry;
  * Create a connection to the server
  * @author Phillip Kruger (phillip.kruger@phillip-kruger.com)
  */
-@Dependent
+@ApplicationScoped
 @Log
 public class WebsocketClient {
     
@@ -49,12 +49,6 @@ public class WebsocketClient {
                 log.log(Level.SEVERE, null, ex);
             }
         }
-    }
-    
-    @Retry(delay = 3,delayUnit = ChronoUnit.SECONDS, maxRetries = 28800)
-    public void reconnect() throws DeploymentException, IOException{
-        disconnect();
-        connect();
     }
     
     public boolean isConnected(){
