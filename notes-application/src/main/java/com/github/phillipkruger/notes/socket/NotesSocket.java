@@ -7,12 +7,14 @@ import com.github.phillipkruger.notes.event.ChangeEvent;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -37,11 +39,19 @@ import lombok.extern.java.Log;
 @ServerEndpoint(value = "/note",encoders = {com.github.phillipkruger.notes.socket.JsonEncoder.class})
 public class NotesSocket {
     
+    
+    private final static Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());
+            
     @Inject 
     private NotesService notesService;
     
+    @PostConstruct
+    public void init(){
+        //log.severe(">>>>>>>>>>>>>>>>>>>> NOTES SOCKET <<<<<<<<<<<<<<<<<<<");
+    }
+    
     public void noteChanged(@Observes ChangeEvent changeEvent){
-        sendChangeEvent(changeEvent);
+        broadcastChangeEvent(sessions, changeEvent);
     }
     
     @OnOpen
@@ -51,12 +61,11 @@ public class NotesSocket {
         List<String> noteTitles = notesService.getNoteTitles();
         noteTitles.forEach((title) -> {
             try {
-                sendNote(notesService.getNote(title));
+                sendNote(session,notesService.getNote(title));
             } catch (NoteNotFoundException ex) {
                 log.log(Level.SEVERE, null, ex);
             }
         });
-        
     }
 
     @OnClose
@@ -70,41 +79,52 @@ public class NotesSocket {
         if(message!=null && "".equalsIgnoreCase(message)){
             try {
                 Note note = notesService.getNote(message);
-                sendNote(note);
+                broadcastNote(session,note);
             } catch (NoteNotFoundException ex) {
                 Logger.getLogger(NotesSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
-    private void sendNote(Note note){
-        if(!sessions.isEmpty()){
-            sessions.forEach((session) -> {
-                try {
-                    //session.getBasicRemote().sendObject(toJSON(note));// Does not work on OpenLiberty
-                    session.getBasicRemote().sendText(toString(note));
-                } catch (IOException  ex){//(IOException | EncodeException ex) {
-                    log.log(Level.SEVERE, null, ex);
-                }
-            });
+    private void broadcastNote(Session session,Note note){
+        Set<Session> openSessions = session.getOpenSessions();
+        openSessions.forEach((s) -> {
+            sendNote(s, note);
+        });
+        
+    }
+    
+    private void sendNote(Session session,Note note){
+        try {
+            if (session.isOpen()){
+                //session.getBasicRemote().sendObject(toJSON(note));// Does not work on OpenLiberty
+                session.getBasicRemote().sendText(toString(note));
+            }
+        } catch (IOException  ex){
+        //} catch (IOException | EncodeException ex) {
+            log.log(Level.SEVERE, null, ex);
         }
     }
     
-    private void sendChangeEvent(ChangeEvent changeEvent){
-        if(!sessions.isEmpty()){
-            sessions.forEach((session) -> {
-                try {
-                    //session.getBasicRemote().sendObject(toJSON(changeEvent)); // Does not work on OpenLiberty
-                    session.getBasicRemote().sendText(toString(changeEvent));
-                } catch (IOException  ex){//(IOException | EncodeException ex) {
-                    log.log(Level.SEVERE, null, ex);
-                }
-            });
-        }
+    private void broadcastChangeEvent(Set<Session> sessions,ChangeEvent changeEvent){
+        
+        sessions.forEach((s) -> {
+            sendChangeEvent(s, changeEvent);
+        });
+        
     }
     
-    private static final Queue<Session> sessions = new ConcurrentLinkedQueue<>();
-    //private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
+    private void sendChangeEvent(Session session,ChangeEvent changeEvent){
+        try {
+            if (session.isOpen()){
+                //session.getBasicRemote().sendObject(toJSON(changeEvent));// Does not work on OpenLiberty
+                session.getBasicRemote().sendText(toString(changeEvent));
+            }
+        } catch (IOException  ex){
+        //} catch (IOException | EncodeException ex) {
+            log.log(Level.SEVERE, null, ex);
+        }
+    }
     
     private JsonObject toJSON(ChangeEvent ce){
         JsonObjectBuilder job = Json.createObjectBuilder();

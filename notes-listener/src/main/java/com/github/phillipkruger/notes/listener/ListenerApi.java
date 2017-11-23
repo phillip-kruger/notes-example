@@ -4,7 +4,6 @@ import com.github.phillipkruger.notes.listener.client.MessageStorage;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Enumeration;
-import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
