@@ -5,7 +5,8 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <h:body>
 
@@ -25,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h:form>
-                            <div class="panel panel-success">
+                            <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">#{i18n['add_note']}</h3>
                                     </div>
@@ -49,7 +50,17 @@
                                                         requiredMessage="#{i18n['text_required']}" 
                                                         pt:placeholder="#{i18n['text']}"></h:inputTextarea>
                                         </div>
-                                        
+                                        <div class="form-group">
+                                            
+                                            <h:selectOneRadio value="#{notesController.newNote.style}">
+                                                <f:selectItem itemValue="yellow" itemLabel="#{i18n['yellow']}" />
+                                                <f:selectItem itemValue="green" itemLabel="#{i18n['green']}" />
+                                                <f:selectItem itemValue="white" itemLabel="#{i18n['white']}" />
+                                                <f:selectItem itemValue="blue" itemLabel="#{i18n['blue']}" />
+                                                <f:selectItem itemValue="red" itemLabel="#{i18n['red']}" />
+                                            </h:selectOneRadio>
+                                            
+                                        </div>
                                         <h:commandLink action="#{notesController.addNote()}" value="#{i18n['save']}" class="pull-right btn btn-default btn-sm">
                                             <span class="glyphicon glyphicon-ok"></span>
                                         </h:commandLink> 
@@ -62,7 +73,9 @@
                             
                             <div class="col-md-4">
                                 <h:form>
-                                    <div class="panel panel-warning">
+                                    
+                                    <h:panelGroup layout="block" class="#{notesController.getCssClass(note.style)}">
+                                    
                                         <div class="panel-heading">
                                             <h3 class="panel-title">#{note.title}</h3>
                                             
@@ -71,8 +84,8 @@
                                             
                                             <h:panelGroup layout="block" binding="#{noteViewMode}" id="noteViewMode">
                                                 #{note.text}
+                                                    
                                                 <hr/>
-                                            
                                                 <h:commandLink action="#{notesController.deleteNote(note.title)}" class="pull-right btn btn-link btn-sm">
                                                     <i class="fa fa-trash-o" aria-hidden="true" style="color:red;"></i>
                                                 </h:commandLink>
@@ -82,15 +95,10 @@
                                             
                                             <h:panelGroup layout="block" binding="#{noteEditMode}" id="noteEditMode" style="display:none;">
                                                 <h:inputTextarea rows="3" id="editNoteText" value="#{note.text}" class="form-control editNote" title="#{i18n['text']}" required="true" requiredMessage="#{i18n['text_required']}" pt:placeholder="#{i18n['text']}"></h:inputTextarea>
-                                                <!--<i class="fa fa-ban" aria-hidden="true" onclick="hideEdit(event)"></i>-->
                                                 <h:commandLink action="#{notesController.updateNote(note.title,note.text)}" class="pull-right btn btn-link btn-sm">
                                                     <i class="fa fa-check-square" aria-hidden="true"></i> Update
                                                 </h:commandLink>
                                             </h:panelGroup>
-                                            
-                                            
-                                            
-                                            
                                             
                                             <script>
                                                 function showEdit(event){
@@ -105,7 +113,7 @@
                                                 }
                                             </script>
                                         </div>
-                                    </div>
+                                    </h:panelGroup>
                                 </h:form>    
                             </div>
                         </ui:repeat>

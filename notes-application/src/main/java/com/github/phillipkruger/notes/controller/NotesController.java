@@ -3,6 +3,7 @@ package com.github.phillipkruger.notes.controller;
 import com.github.phillipkruger.notes.Note;
 import com.github.phillipkruger.notes.NoteExistAlreadyException;
 import com.github.phillipkruger.notes.NoteNotFoundException;
+import com.github.phillipkruger.notes.NoteStyle;
 import com.github.phillipkruger.notes.NotesService;
 import java.util.List;
 import java.util.logging.Level;
@@ -41,7 +42,7 @@ public class NotesController {
     
     public void addNote(){
         try {
-            notesService.createNote(newNote.getTitle(), newNote.getText());
+            notesService.createNote(newNote);
             refresh();
         } catch (NoteExistAlreadyException ex) {
             // TODO: To Screen
@@ -69,5 +70,15 @@ public class NotesController {
             // TODO: To Screen
             log.log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String getCssClass(NoteStyle noteStyle){
+        if(noteStyle == NoteStyle.yellow) return "panel panel-warning";
+        if(noteStyle == NoteStyle.green) return "panel panel-success";
+        if(noteStyle == NoteStyle.white) return "panel panel-default";
+        if(noteStyle == NoteStyle.blue) return "panel panel-info";
+        if(noteStyle == NoteStyle.red) return "panel panel-danger";
+        
+        return null;
     }
 }

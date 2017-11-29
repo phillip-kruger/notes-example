@@ -1,9 +1,11 @@
 package com.github.phillipkruger.notes.socket;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
@@ -22,7 +24,6 @@ public class JsonEncoder implements Encoder.Text<JsonObject> {
 
     @Override
     public String encode(JsonObject payload) throws EncodeException {
-        
         try (StringWriter stringWriter = new StringWriter();
             JsonWriter jsonWriter = Json.createWriter(stringWriter)) {
             jsonWriter.writeObject(payload);

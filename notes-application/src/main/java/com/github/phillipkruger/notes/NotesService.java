@@ -1,6 +1,7 @@
 package com.github.phillipkruger.notes;
 
 import com.github.phillipkruger.notes.event.Notify;
+import com.github.phillipkruger.notes.stopwatch.Stopwatch;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,15 +28,20 @@ public class NotesService {
     @PersistenceContext(name="com.github.phillipkruger.notes")
     private EntityManager em;
     
-    @Notify("create")
+    @Notify("create") @Stopwatch
     public Note createNote(@NotNull @Size(min=2, max=20) String title,@NotNull String text) throws NoteExistAlreadyException{
-        if(exist(title))throw new NoteExistAlreadyException("Could not create note [" + title + "]");
         Note note = new Note(title, text);
+        return createNote(note);
+    }
+
+    @Notify("create") @Stopwatch
+    public Note createNote(@NotNull Note note) throws NoteExistAlreadyException{
+        if(exist(note.getTitle()))throw new NoteExistAlreadyException("Could not create note [" + note.getTitle() + "]");
         note = em.merge(note);
         log.log(Level.INFO, "Created note [{0}]", note);
         return note;
     }
-
+    
     public Note getNote(@NotNull @Size(min=2, max=20) String title) throws NoteNotFoundException{
         if(!exist(title))throw new NoteNotFoundException("Could not find note [" + title + "]");
         Note note = (Note)em.createNamedQuery(Note.QUERY_FIND_BY_TITLE)
@@ -45,7 +51,7 @@ public class NotesService {
         return note;
     }
 
-    @Notify("delete")
+    @Notify("delete") @Stopwatch
     public Note deleteNote(@NotNull @Size(min=2, max=20) String title) throws NoteNotFoundException{
         if(!exist(title))throw new NoteNotFoundException("Could not find note [" + title + "]");
         Note note = getNote(title);
@@ -54,7 +60,7 @@ public class NotesService {
         return note;
     }
 
-    @Notify("update")
+    @Notify("update") @Stopwatch
     public Note updateNote(@NotNull Note note) throws NoteNotFoundException{
         if(!exist(note.getTitle()))throw new NoteNotFoundException("Could not find note [" + note.getTitle() + "]");
         note = em.merge(note);

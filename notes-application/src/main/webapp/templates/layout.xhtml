@@ -39,12 +39,19 @@
                         <li><a href="/notes-application/stompee/index.html" target="_blank">Log output</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://javaee.github.io/javaserverfaces-spec/" target="_blank">JSF</a></li>
-                        <li><a href="http://www.webjars.org/" target="_blank">Webjars</a></li>
-                        <li><a href="https://getbootstrap.com/docs/3.3/" target="_blank">Bootstrap</a></li>
-                        <li><a href="http://fontawesome.io/" target="_blank">Font Awesome</a></li>
-
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#{i18n['build_with']} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <h:form>
+                                    <li><a href="https://javaee.github.io/javaserverfaces-spec/" target="_blank">JSF</a></li>
+                                    <li><a href="http://www.webjars.org/" target="_blank">Webjars</a></li>
+                                    <li><a href="https://getbootstrap.com/docs/3.3/" target="_blank">Bootstrap</a></li>
+                                    <li><a href="http://fontawesome.io/" target="_blank">Font Awesome</a></li>
+                                </h:form>
+                            </ul>
+                        </li>
                         
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Language <span class="caret"></span></a>
                             <ul class="dropdown-menu">

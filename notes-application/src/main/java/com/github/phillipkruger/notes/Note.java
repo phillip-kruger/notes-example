@@ -61,6 +61,9 @@ public class Note implements Serializable {
     @NotNull @XmlAttribute(required=true) 
     private String text;
     
+    @NotNull @XmlAttribute(required=true)
+    private NoteStyle style = NoteStyle.yellow; // Default
+    
     public Note(@NotNull String title, @NotNull String text){
         this.created = new Date();
         this.lastUpdated = new Date();

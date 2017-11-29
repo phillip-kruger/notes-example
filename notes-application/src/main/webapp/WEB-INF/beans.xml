@@ -6,5 +6,6 @@
     
     <interceptors>
         <class>com.github.phillipkruger.notes.event.NotifyInterceptor</class>
+        <class>com.github.phillipkruger.notes.stopwatch.StopwatchInterceptor</class>
     </interceptors>
 </beans>

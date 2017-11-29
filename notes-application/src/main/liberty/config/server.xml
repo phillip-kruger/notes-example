@@ -25,15 +25,15 @@
     <messagingEngine>
         <queue id="notesQueue" />
     </messagingEngine>
-    <jmsQueueConnectionFactory jndiName="jms/notesQueueCF">
+<!--    <jmsQueueConnectionFactory jndiName="jms/notesQueueCF">
         <properties.wasJms />
     </jmsQueueConnectionFactory>
     <jmsQueue jndiName="jms/notesQueue">
         <properties.wasJms queueName="notesQueue" />
     </jmsQueue>
     <jmsActivationSpec id="notes-example/notesQueueMDB">
-        <properties.wasJms destination="jms/notesQueue" destinationType="javax.jms.Queue"/>
-    </jmsActivationSpec>
+        <properties.wasJms destination="java:global/jms/notesQueue" destinationType="javax.jms.Queue"/>
+    </jmsActivationSpec>-->
     
     <dataSource id="DefaultDataSource" jdbcDriverRef="DerbyEmbedded">
         <properties.derby.embedded createDatabase="create" databaseName="${server.config.dir}/data"/>

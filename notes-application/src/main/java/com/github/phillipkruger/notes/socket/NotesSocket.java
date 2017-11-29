@@ -4,6 +4,7 @@ import com.github.phillipkruger.notes.Note;
 import com.github.phillipkruger.notes.NoteNotFoundException;
 import com.github.phillipkruger.notes.NotesService;
 import com.github.phillipkruger.notes.event.ChangeEvent;
+import com.github.phillipkruger.notes.stopwatch.Stopwatch;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -21,7 +22,6 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonWriter;
-import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -54,7 +54,7 @@ public class NotesSocket {
         broadcastChangeEvent(sessions, changeEvent);
     }
     
-    @OnOpen
+    @OnOpen @Stopwatch(level = "INFO")
     public void onOpen(Session session){
         sessions.add(session);
         log.log(Level.INFO, "Session joined [{0}]", session.getId());
@@ -68,13 +68,13 @@ public class NotesSocket {
         });
     }
 
-    @OnClose
+    @OnClose @Stopwatch(level = "INFO")
     public void onClose(Session session){
         sessions.remove(session);
         log.log(Level.INFO, "Session left [{0}]", session.getId());
     }
     
-    @OnMessage
+    @OnMessage @Stopwatch(level = "INFO")
     public void onMessage(String message, Session session){
         if(message!=null && "".equalsIgnoreCase(message)){
             try {
@@ -127,26 +127,25 @@ public class NotesSocket {
     }
     
     private JsonObject toJSON(ChangeEvent ce){
-        JsonObjectBuilder job = Json.createObjectBuilder();
-        Note note = ce.getNote();
-        job.add("created", toJSONDate(note.getCreated()));
-        job.add("lastUpdated", toJSONDate(note.getLastUpdated()));
-        job.add("title", note.getTitle());
-        job.add("text", note.getText());
+        JsonObjectBuilder job = getJsonObjectBuilder(ce.getNote());
         job.add("changeType", ce.getType());
         return job.build();
     }
     
     private JsonObject toJSON(Note note){
+        return getJsonObjectBuilder(note).build();
+    }
+    
+    private JsonObjectBuilder getJsonObjectBuilder(Note note){
         JsonObjectBuilder job = Json.createObjectBuilder();
         
         job.add("created", toJSONDate(note.getCreated()));
         job.add("lastUpdated", toJSONDate(note.getLastUpdated()));
         job.add("title", note.getTitle());
         job.add("text", note.getText());
-        return job.build();
+        job.add("style", note.getStyle().toString());
+        return job;
     }
-    
     
     private String toString(ChangeEvent ce) throws IOException{
         JsonObject jo = toJSON(ce);

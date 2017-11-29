@@ -48,19 +48,20 @@ function openSocket(){
     webSocket.onmessage = function(event){
         
         var json = JSON.parse(event.data);
-        
+        console.log(json);
         var type = json.changeType;
         var title = json.title;
         var note = json.text;
+        var style = json.style;
         var created = new Date(json.created).toDateString();
         
         if(type == "update"){ 
             removeCard(title);
-            writeCard(title,created,note);
+            writeCard(title,created,note,style);
         }else if( type == "delete"){
             removeCard(title);
         }else {
-            writeCard(title,created,note);
+            writeCard(title,created,note,style);
         }
         
     };
@@ -78,13 +79,14 @@ function removeCard(title){
     $("#" + toHTMLId(title)).remove();
 }
 
-function writeCard(title,created,note){
-    writeResponse("<div class='ui yellow card' id='" + toHTMLId(title) +"'><div class='content'><a class='header'>" 
+function writeCard(title,created,note,style){
+    
+    writeResponse("<div class='ui " + style + " card' id='" + toHTMLId(title) +"'><div class='content'><a class='header'>" 
                 + title 
                 + "</a><div class='meta'><span class='date'>" 
                 + created 
                 + "</span></div><div class='description'>" 
-                + note 
+                + note
                 + "</div></div></div>");
 }
 
