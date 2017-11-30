@@ -61,6 +61,21 @@
                                             </h:selectOneRadio>
                                             
                                         </div>
+                                        
+                                        <div class="form-group">
+                                            <h:inputText id="newNoteTags" 
+                                                         value="#{notesController.newNote.tags}" 
+                                                         class="form-control" 
+                                                         title="#{i18n['tags']}" 
+                                                         required="false" 
+                                                         pt:placeholder="#{i18n['tags']}"
+                                                         pt:data-role="tagsinput"
+                                                         converter="com.github.phillipkruger.notes.controller.TagsConverter">
+                                                
+                                            </h:inputText>
+                                            
+                                        </div>
+                                        
                                         <h:commandLink action="#{notesController.addNote()}" value="#{i18n['save']}" class="pull-right btn btn-default btn-sm">
                                             <span class="glyphicon glyphicon-ok"></span>
                                         </h:commandLink> 
@@ -84,14 +99,18 @@
                                             
                                             <h:panelGroup layout="block" binding="#{noteViewMode}" id="noteViewMode">
                                                 #{note.text}
-                                                    
+                                                <br/>
+                                                
+                                                <ui:repeat value="#{note.tags}" var="tag">
+                                                    <span class="label label-info">#{tag}</span>    
+                                                </ui:repeat>
+                                                
                                                 <hr/>
                                                 <h:commandLink action="#{notesController.deleteNote(note.title)}" class="pull-right btn btn-link btn-sm">
                                                     <i class="fa fa-trash-o" aria-hidden="true" style="color:red;"></i>
                                                 </h:commandLink>
                                                 <i class="fa fa-pencil" aria-hidden="true" onclick="showEdit(event)"></i>
                                             </h:panelGroup>
-                                            
                                             
                                             <h:panelGroup layout="block" binding="#{noteEditMode}" id="noteEditMode" style="display:none;">
                                                 <h:inputTextarea rows="3" id="editNoteText" value="#{note.text}" class="form-control editNote" title="#{i18n['text']}" required="true" requiredMessage="#{i18n['text_required']}" pt:placeholder="#{i18n['text']}"></h:inputTextarea>

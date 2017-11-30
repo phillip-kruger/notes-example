@@ -21,8 +21,9 @@
         
         <!-- Javascript libraries -->
         <semantic-ui.version>2.2.10</semantic-ui.version>
-        <jquery.version>2.0.0</jquery.version>
+        <jquery.version>2.1.4</jquery.version>
         <bootstrap.version>3.3.7</bootstrap.version>
+        <bootstrap.tagsinput.version>0.8.0</bootstrap.tagsinput.version>
         <font-awesome.version>4.7.0</font-awesome.version>
         
         <!-- App servers when using autodeploy -->
@@ -66,6 +67,12 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>bootstrap</artifactId>
             <version>${bootstrap.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>bootstrap-tagsinput</artifactId>
+            <version>${bootstrap.tagsinput.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>

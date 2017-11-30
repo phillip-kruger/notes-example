@@ -1,8 +1,13 @@
 package com.github.phillipkruger.notes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -64,6 +70,10 @@ public class Note implements Serializable {
     @NotNull @XmlAttribute(required=true)
     private NoteStyle style = NoteStyle.yellow; // Default
     
+    @Column
+    @ElementCollection(fetch = FetchType.EAGER,targetClass=String.class)
+    private List<String> tags = new ArrayList<>();
+    
     public Note(@NotNull String title, @NotNull String text){
         this.created = new Date();
         this.lastUpdated = new Date();
@@ -71,4 +81,8 @@ public class Note implements Serializable {
         this.text = text;
     }
     
+    @Transient
+    public void addTag(String tag){
+        this.tags.add(tag);
+    }   
 }

@@ -53,15 +53,16 @@ function openSocket(){
         var title = json.title;
         var note = json.text;
         var style = json.style;
+        var tags = json.tags;
         var created = new Date(json.created).toDateString();
         
         if(type == "update"){ 
             removeCard(title);
-            writeCard(title,created,note,style);
+            writeCard(title,created,note,style,tags);
         }else if( type == "delete"){
             removeCard(title);
         }else {
-            writeCard(title,created,note,style);
+            writeCard(title,created,note,style,tags);
         }
         
     };
@@ -79,19 +80,39 @@ function removeCard(title){
     $("#" + toHTMLId(title)).remove();
 }
 
-function writeCard(title,created,note,style){
+function writeCard(title,created,note,style,tags){
     
-    writeResponse("<div class='ui " + style + " card' id='" + toHTMLId(title) +"'><div class='content'><a class='header'>" 
-                + title 
-                + "</a><div class='meta'><span class='date'>" 
-                + created 
-                + "</span></div><div class='description'>" 
-                + note
-                + "</div></div></div>");
+    writeResponse("<div class='ui " + style + " card' id='" + toHTMLId(title) +"'>"
+                    + "<div class='content'>"
+                        + "<a class='header'>" 
+                            + title 
+                        + "</a>"
+                        + "<div class='meta'>"
+                            + "<span class='date'>" 
+                                + created 
+                            + "</span>"
+                        + "</div>" 
+                        + "<div class='description'>" 
+                            + note + "<br/>"
+                            + writeTags(tags)     
+                        + "</div>" 
+                    + "</div>" 
+                + "</div>");
 }
 
 function writeResponse(text){
     messages.innerHTML += text + "<br/>";
+}
+
+function writeTags(tags){
+    var t = "";
+    tags.forEach(function(entry) {
+        t = t + "<div class='ui label'>"
+                + "<i class='tag icon'></i> " + entry
+            + "</div>";
+    });
+    
+    return t;
 }
 
 function toHTMLId(title){

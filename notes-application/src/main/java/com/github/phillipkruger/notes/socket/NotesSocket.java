@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonWriter;
@@ -144,6 +145,15 @@ public class NotesSocket {
         job.add("title", note.getTitle());
         job.add("text", note.getText());
         job.add("style", note.getStyle().toString());
+        
+        if(note.getTags()!=null && !note.getTags().isEmpty()){
+            JsonArrayBuilder tagBuilder = Json.createArrayBuilder();
+            note.getTags().forEach((tag) -> {
+                tagBuilder.add(tag);
+            });
+            job.add("tags", tagBuilder);
+        }
+        
         return job;
     }
     
