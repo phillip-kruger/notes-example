@@ -19,7 +19,7 @@ import lombok.extern.java.Log;
 @Stateless
 public class AuditProducer {
 
-    @Inject @NotesQueue
+    @Inject
     private JMSContext context;
     
     @Inject @NotesQueue

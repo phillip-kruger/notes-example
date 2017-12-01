@@ -5,8 +5,6 @@ import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.jms.JMSContext;
 import javax.jms.JMSDestinationDefinition;
 import javax.jms.Queue;
 import lombok.extern.java.Log;
@@ -18,28 +16,20 @@ import lombok.extern.java.Log;
  */
 @Log
 @JMSDestinationDefinition(
-    name="java:app/NotesQueue",
+    name="java:app/notesQueue",
     interfaceName="javax.jms.Queue",
     destinationName="notesQueue")
 @Startup
 @Singleton
 public class QueueInitializer {
-        
-    @Resource(lookup = "java:app/NotesQueue")
-    private Queue queue;
-    
-    @Inject
-    private JMSContext jmsContext;
     
     @Produces @NotesQueue
     public Queue exposeQueue() {
         return this.queue;
     }
     
-    @Produces @NotesQueue
-    public JMSContext exposeContext(){
-        return this.jmsContext;
-    }
+    @Resource(lookup = "java:app/notesQueue")
+    private Queue queue;
     
     @PostConstruct
     public void init(){

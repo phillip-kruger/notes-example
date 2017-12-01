@@ -82,4 +82,5 @@ In `conf/system.properties` add:
     openejb.environment.default = true
 
 ### OpenLiberty
-Can not get JMSDestinationDefinition to work :(
+
+See server.xml for the server configuration needed.
