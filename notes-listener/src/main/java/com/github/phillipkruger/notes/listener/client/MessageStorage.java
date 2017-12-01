@@ -1,6 +1,7 @@
 package com.github.phillipkruger.notes.listener.client;
 
 import java.util.Stack;
+import java.util.logging.Level;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import lombok.Getter;
@@ -19,8 +20,7 @@ public class MessageStorage {
     
     public void store(@Observes String message){
         messagesStack.push(message);
-        log.info("================ NEW MESSAGE ===================\n"
-                + messagesStack.peek());
+        log.log(Level.INFO, "================ NEW MESSAGE ===================\n{0}", messagesStack.peek());
     }
     
     

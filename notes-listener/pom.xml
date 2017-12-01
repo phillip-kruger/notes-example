@@ -100,5 +100,90 @@
                         
             </build>
         </profile>
+        
+        <!-- Activate using the wildfly property: mvn clean install -Dwildfly -->
+        <profile>
+            <id>wildfly-swarm</id>
+            <activation>
+                <property>
+                    <name>wildfly-swarm</name>
+                </property>
+            </activation>
+            
+            <properties>
+                <swarm.version>2017.11.0</swarm.version>
+                <swarm.http.port>8081</swarm.http.port>
+            </properties>
+            
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.wildfly.swarm</groupId>
+                        <artifactId>bom-all</artifactId>
+                        <version>${swarm.version}</version>
+                        <scope>import</scope>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+            
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly.swarm</groupId>
+                    <artifactId>jaxrs</artifactId>
+                </dependency>
+                
+                <dependency>
+                    <groupId>org.wildfly.swarm</groupId>
+                    <artifactId>cdi</artifactId>
+                </dependency>
+                
+                <dependency>
+                    <groupId>org.wildfly.swarm</groupId>
+                    <artifactId>undertow</artifactId>           
+                </dependency>
+                <dependency>
+                    <groupId>org.wildfly.swarm</groupId>
+                    <artifactId>microprofile</artifactId>
+                </dependency>
+            </dependencies>
+            
+
+            
+            <build>
+                <plugins>
+                    
+                    <plugin>
+                        <groupId>org.wildfly.swarm</groupId>
+                        <artifactId>wildfly-swarm-plugin</artifactId>
+                        <version>${swarm.version}</version>
+<!--                        <configuration>
+                            <fractions>
+                                undertow,microprofile
+                            </fractions>
+                            
+                        </configuration>-->
+                        
+                        <executions>
+                            <execution>
+                              <goals>
+                                <goal>package</goal>
+                              </goals>
+                            </execution>
+                        </executions>
+<!--                        <executions>
+                            <execution>
+                                <id>2</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>-->
+                    </plugin>
+                    
+                </plugins>        
+            </build>
+        </profile>  
     </profiles>
 </project>

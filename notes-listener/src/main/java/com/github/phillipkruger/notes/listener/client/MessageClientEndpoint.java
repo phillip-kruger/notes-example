@@ -27,7 +27,7 @@ public class MessageClientEndpoint {
     @Inject
     private Event<String> broadcaster;
     
-    @OnMessage
+    @OnMessage 
     public void onMessage(String message) {
         broadcaster.fire(message);
     }

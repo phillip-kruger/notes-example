@@ -40,7 +40,6 @@ public class ListenerApi {
             while (elements.hasMoreElements()) {
                 String nextElement = elements.nextElement();
                 stringWriter.write(nextElement);
-                stringWriter.write("\n");
             }
             return stringWriter.toString();
         }   
