@@ -52,12 +52,11 @@
                                         </div>
                                         <div class="form-group">
                                             
-                                            <h:selectOneRadio value="#{notesController.newNote.style}">
-                                                <f:selectItem itemValue="yellow" itemLabel="#{i18n['yellow']}" />
-                                                <f:selectItem itemValue="green" itemLabel="#{i18n['green']}" />
-                                                <f:selectItem itemValue="white" itemLabel="#{i18n['white']}" />
-                                                <f:selectItem itemValue="blue" itemLabel="#{i18n['blue']}" />
-                                                <f:selectItem itemValue="red" itemLabel="#{i18n['red']}" />
+                                            <h:selectOneRadio value="#{notesController.newNote.style}" id="noteStyle">
+                                                <f:selectItems value="#{notesController.noteStyles}"
+                                                               var="noteStyle"
+                                                               itemValue="#{noteStyle}"
+                                                               itemLabel="#{i18n[noteStyle.name()]}" />
                                             </h:selectOneRadio>
                                             
                                         </div>

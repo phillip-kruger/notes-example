@@ -5,12 +5,13 @@ import com.github.phillipkruger.notes.NoteExistAlreadyException;
 import com.github.phillipkruger.notes.NoteNotFoundException;
 import com.github.phillipkruger.notes.NoteStyle;
 import com.github.phillipkruger.notes.NotesService;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -23,7 +24,7 @@ import lombok.extern.java.Log;
 @Log
 @RequestScoped
 @Named
-public class NotesController {
+public class NotesController implements Serializable {
     
     @EJB
     private NotesService notesService; 
@@ -33,6 +34,9 @@ public class NotesController {
     
     @Getter @Setter
     private Note newNote = new Note();
+    
+    @Getter
+    private final NoteStyle[] noteStyles = NoteStyle.values(); 
     
     @PostConstruct
     public void refresh(){

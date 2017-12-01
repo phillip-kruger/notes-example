@@ -35,7 +35,7 @@ public class AuditConsumer implements MessageListener {
     }
     
     private void print(String action,String object){
-        log.log(Level.SEVERE, "AUDIT: {0}| {1}", new Object[]{action, object});
+        log.log(Level.SEVERE, "(JMS) AUDIT: {0}| {1}", new Object[]{action, object});
     }
     
     private static final String ACTION_PROPERTY = "ChangeEvent";

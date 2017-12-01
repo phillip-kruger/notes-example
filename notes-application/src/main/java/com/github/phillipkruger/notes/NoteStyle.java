@@ -33,6 +33,10 @@ public enum NoteStyle {
             return yellow;
         }else if(white.style.equalsIgnoreCase(getFirstChar(style))){
             return white;
+        }else if(blue.style.equalsIgnoreCase(getFirstChar(style))){
+            return blue;
+        }else if(red.style.equalsIgnoreCase(getFirstChar(style))){
+            return red;
         }
         return null;
     }
